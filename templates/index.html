@@ -1,0 +1,36 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Image Color Palette Generator{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('.static', filename='css/styles.css')}}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{{super()}}
+{% endblock %}
+{% block content %}
+<div class="jumbotron text-center">
+  <!-- File Picker -->
+  {{ wtf.quick_form(form, novalidate=True) }}
+  <!-- Display Image -->
+  <div class="image-color-palatte-conatainer">
+  <div>
+  {% if image_path %}
+  <img src={{image_path}} class="input-image">
+  {% endif %}
+  </div>
+  <!-- Palette -->
+  <div class="colour-palette">
+  {% if color_palette %}
+  <h3>Top 10 colors in the image</h3>
+  <br>
+  <ul>
+    {% for color in color_palette %}
+    <li>
+      <p>{{color.rgb}}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}
